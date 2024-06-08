@@ -10,6 +10,12 @@ import (
 
 // go:generate msgp
 // msgp -file="manager.go" -o="manager_msgp.go" -tests=false -unexported
+type cacheSegments struct {
+	segments map[string]item
+}
+
+// go:generate msgp
+// msgp -file="manager.go" -o="manager_msgp.go" -tests=false -unexported
 type item struct {
 	body      []byte
 	ctype     []byte
@@ -33,7 +39,7 @@ func newManager(storage fiber.Storage) *manager {
 	manager := &manager{
 		pool: sync.Pool{
 			New: func() interface{} {
-				return new(item)
+				return new(cacheSegments)
 			},
 		},
 	}
@@ -48,45 +54,41 @@ func newManager(storage fiber.Storage) *manager {
 }
 
 // acquire returns an *entry from the sync.Pool
-func (m *manager) acquire() *item {
-	return m.pool.Get().(*item) //nolint:forcetypeassert // We store nothing else in the pool
+func (m *manager) acquire() *cacheSegments {
+	return m.pool.Get().(*cacheSegments) //nolint:forcetypeassert // We store nothing else in the pool
 }
 
 // release and reset *entry to sync.Pool
-func (m *manager) release(e *item) {
+func (m *manager) release(seg *cacheSegments) {
 	// don't release item if we using memory storage
 	if m.storage != nil {
 		return
 	}
-	e.body = nil
-	e.ctype = nil
-	e.status = 0
-	e.exp = 0
-	e.headers = nil
-	m.pool.Put(e)
+	seg.segments = nil
+	m.pool.Put(seg)
 }
 
 // get data from storage or memory
-func (m *manager) get(key string) *item {
-	var it *item
+func (m *manager) get(key string) *cacheSegments {
+	var seg *cacheSegments
 	if m.storage != nil {
-		it = m.acquire()
+		seg = m.acquire()
 		raw, err := m.storage.Get(key)
 		if err != nil {
-			return it
+			return seg
 		}
 		if raw != nil {
-			if _, err := it.UnmarshalMsg(raw); err != nil {
-				return it
+			if _, err := seg.UnmarshalMsg(raw); err != nil {
+				return seg
 			}
 		}
-		return it
+		return seg
 	}
-	if it, _ = m.memory.Get(key).(*item); it == nil { //nolint:errcheck // We store nothing else in the pool
-		it = m.acquire()
-		return it
+	if seg, _ = m.memory.Get(key).(*cacheSegments); seg == nil { //nolint:errcheck // We store nothing else in the pool
+		seg = m.acquire()
+		return seg
 	}
-	return it
+	return seg
 }
 
 // get raw data from storage or memory
@@ -101,15 +103,15 @@ func (m *manager) getRaw(key string) []byte {
 }
 
 // set data to storage or memory
-func (m *manager) set(key string, it *item, exp time.Duration) {
+func (m *manager) set(key string, seg *cacheSegments, exp time.Duration) {
 	if m.storage != nil {
-		if raw, err := it.MarshalMsg(nil); err == nil {
+		if raw, err := seg.MarshalMsg(nil); err == nil {
 			_ = m.storage.Set(key, raw, exp) //nolint:errcheck // TODO: Handle error here
 		}
 		// we can release data because it's serialized to database
-		m.release(it)
+		m.release(seg)
 	} else {
-		m.memory.Set(key, it, exp)
+		m.memory.Set(key, seg, exp)
 	}
 }
 
