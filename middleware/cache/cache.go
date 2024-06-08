@@ -3,6 +3,7 @@
 package cache
 
 import (
+	"bytes"
 	"strconv"
 	"strings"
 	"sync"
@@ -113,7 +114,31 @@ func New(config ...Config) fiber.Handler {
 		key := cfg.KeyGenerator(c) + "_" + c.Method()
 
 		// Get entry from pool
-		e := manager.get(key)
+		s := manager.get(key)
+		var e item
+		// PERF: avoid alloc and refactor this awful but functional chunk of code
+		if _, ok := s.segments["default"]; ok {
+			e = s.segments["default"]
+		} else {
+			e = item{}
+		}
+		for segKey := range s.segments {
+			if segKey == "default" {
+				continue
+			}
+			// Compare segment headers with request headers
+			match := func(segKey string) bool {
+				for _, v := range strings.Split(strings.TrimPrefix(segKey, "default;"), ";") {
+					if h := strings.Split(v, ":"); strings.Compare(string(c.Request().Header.Peek(strings.Title(h[0]))), h[1]) != 0 {
+						return false
+					}
+				}
+				return true
+			}
+			if match(segKey) {
+				e = s.segments[segKey]
+			}
+		}
 
 		// Lock entry
 		mux.Lock()
@@ -132,6 +157,7 @@ func New(config ...Config) fiber.Handler {
 			// Separate body value to avoid msgp serialization
 			// We can store raw bytes with Storage 👍
 			if cfg.Storage != nil {
+				// FIXME: body segments are overlaping, breaking non-in-memory storage
 				e.body = manager.getRaw(key + "_body")
 			}
 			// Set response headers from cache
@@ -227,16 +253,35 @@ func New(config ...Config) fiber.Handler {
 			storedBytes += bodySize
 		}
 
+		// Generate cache segment key
+		// PERF: determine segment match based on key, not entry headers
+		// This will be made possible by applying a clean & more deterministic
+		// normalization procedure
+		segKey := bytes.NewBuffer([]byte("default"))
+		if len(c.Response().Header.Peek("Vary")) > 0 {
+			for _, v := range strings.Split(strings.ReplaceAll(string(c.Response().Header.Peek("Vary")), " ", ""), ",") {
+				segKey.WriteString(";" + strings.ToLower(string(v)) + ":")
+				segKey.Write(bytes.ToLower(bytes.TrimSpace(c.Request().Header.Peek(v))))
+			}
+		}
+		k := segKey.String()
+
 		// For external Storage we store raw body separated
 		if cfg.Storage != nil {
 			manager.setRaw(key+"_body", e.body, expiration)
 			// avoid body msgp encoding
 			e.body = nil
-			manager.set(key, e, expiration)
-			manager.release(e)
+			manager.set(key, &cacheSegments{segments: map[string]item{k: e}}, expiration)
+			// manager.release(e)
 		} else {
 			// Store entry in memory
-			manager.set(key, e, expiration)
+			if seg := manager.get(key); len(seg.segments) != 0 {
+				// append to existing segments map
+				seg.segments[k] = e
+				manager.set(key, seg, expiration)
+			} else {
+				manager.set(key, &cacheSegments{segments: map[string]item{k: e}}, expiration)
+			}
 		}
 
 		c.Set(cfg.CacheHeader, cacheMiss)
