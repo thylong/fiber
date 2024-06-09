@@ -31,21 +31,24 @@ const (
 
 // directives
 const (
+	private = "private"
 	noCache = "no-cache"
 	noStore = "no-store"
 )
 
 var ignoreHeaders = map[string]interface{}{
-	"Connection":          nil,
-	"Keep-Alive":          nil,
-	"Proxy-Authenticate":  nil,
-	"Proxy-Authorization": nil,
-	"TE":                  nil,
-	"Trailers":            nil,
-	"Transfer-Encoding":   nil,
-	"Upgrade":             nil,
-	"Content-Type":        nil, // already stored explicitly by the cache manager
-	"Content-Encoding":    nil, // already stored explicitly by the cache manager
+	"connection":                nil,
+	"keep-alive":                nil,
+	"proxy-authenticate":        nil,
+	"proxy-authorization":       nil,
+	"proxy-authentication-info": nil,
+	"proxy-connection":          nil,
+	"te":                        nil,
+	"trailers":                  nil,
+	"transfer-encoding":         nil,
+	"upgrade":                   nil,
+	"content-type":              nil, // already stored explicitly by the cache manager
+	"content-encoding":          nil, // already stored explicitly by the cache manager
 }
 
 // New creates a new middleware handler
@@ -162,7 +165,29 @@ func New(config ...Config) fiber.Handler {
 			}
 			// Set response headers from cache
 			c.Response().SetBodyRaw(e.body)
-			c.Response().SetStatusCode(e.status)
+
+			// set response status
+			before := func(imsh, lmsh []byte) bool {
+				ims, err := time.Parse(time.RFC1123, string(imsh))
+				if err != nil {
+					return false
+				}
+				lms, err := time.Parse(time.RFC1123, string(lmsh))
+				if err != nil {
+					return false
+				}
+				if lms.Compare(ims) <= 0 {
+					return true
+				}
+				return false
+			}
+
+			if before(c.Request().Header.Peek("If-Modified-Since"), e.headers["Last-Modified"]) {
+				c.Response().SetStatusCode(fiber.StatusNotModified)
+			} else {
+				c.Response().SetStatusCode(e.status)
+			}
+
 			c.Response().Header.SetContentTypeBytes(e.ctype)
 			if len(e.cencoding) > 0 {
 				c.Response().Header.SetBytesV(fiber.HeaderContentEncoding, e.cencoding)
@@ -202,6 +227,42 @@ func New(config ...Config) fiber.Handler {
 			return nil
 		}
 
+		// Don't cache response if Contains a Vary: *
+		if bytes.Contains(c.Response().Header.Peek("Vary"), []byte("*")) {
+			c.Set(cfg.CacheHeader, cacheUnreachable)
+			return nil
+		}
+
+		// Don't cache response if Contains a Set-Cookie
+		if len(c.Response().Header.Peek("Set-Cookie")) > 0 {
+			c.Set(cfg.CacheHeader, cacheUnreachable)
+			return nil
+		}
+
+		// Don't cache response if contains double quotes
+		if bytes.ContainsAny(c.Response().Header.Peek("Cache-Control"), "\"'") {
+			c.Set(cfg.CacheHeader, cacheUnreachable)
+			return nil
+		}
+
+		// Don't cache response if private
+		if hasResponseDirective(c, private) {
+			c.Set(cfg.CacheHeader, cacheUnreachable)
+			return nil
+		}
+
+		// Don't cache response if no-store
+		if hasResponseDirective(c, noStore) {
+			c.Set(cfg.CacheHeader, cacheUnreachable)
+			return nil
+		}
+
+		// Don't cache response if no-cache
+		if hasResponseDirective(c, noCache) {
+			c.Set(cfg.CacheHeader, cacheUnreachable)
+			return nil
+		}
+
 		// Don't try to cache if body won't fit into cache
 		bodySize := uint(len(c.Response().Body()))
 		if cfg.MaxBytes > 0 && bodySize > cfg.MaxBytes {
@@ -232,7 +293,7 @@ func New(config ...Config) fiber.Handler {
 				func(key, value []byte) {
 					// create real copy
 					keyS := string(key)
-					if _, ok := ignoreHeaders[keyS]; !ok {
+					if _, ok := ignoreHeaders[strings.ToLower(keyS)]; !ok {
 						e.headers[keyS] = utils.CopyBytes(value)
 					}
 				},
@@ -244,6 +305,11 @@ func New(config ...Config) fiber.Handler {
 		// Calculate expiration by response header or other setting
 		if cfg.ExpirationGenerator != nil {
 			expiration = cfg.ExpirationGenerator(c, &cfg)
+		}
+
+		if expiration <= 0 {
+			c.Set(cfg.CacheHeader, cacheUnreachable)
+			return nil
 		}
 		e.exp = ts + uint64(expiration.Seconds())
 
@@ -293,5 +359,10 @@ func New(config ...Config) fiber.Handler {
 
 // Check if request has directive
 func hasRequestDirective(c *fiber.Ctx, directive string) bool {
-	return strings.Contains(c.Get(fiber.HeaderCacheControl), directive)
+	return strings.Contains(strings.ToLower(c.Get(fiber.HeaderCacheControl)), directive)
+}
+
+// Check if response has directive
+func hasResponseDirective(c *fiber.Ctx, directive string) bool {
+	return strings.Contains(strings.ToLower(c.GetRespHeader(fiber.HeaderCacheControl)), directive)
 }
