@@ -8,8 +8,8 @@ sidebar_position: 6
 We can use logs to observe program behavior, diagnose problems, or configure corresponding alarms.
 And defining a well structured log can improve search efficiency and facilitate handling of problems.
 
-Fiber provides a default way to print logs in the standard output. 
-It also provides several global functions, such as `log.Info`, `log.Errorf`, `log.Warnw`, etc. 
+Fiber provides a default way to print logs in the standard output.
+It also provides several global functions, such as `log.Info`, `log.Errorf`, `log.Warnw`, etc.
 
 ## Log levels
 
@@ -44,7 +44,7 @@ type AllLogger interface {
 ```
 
 ## Print log
-Note: The method of calling the Fatal level will interrupt the program running after printing the log, please use it with caution. 
+Note: The method of calling the Fatal level will interrupt the program running after printing the log, please use it with caution.
 Directly print logs of different levels, which will be entered into messageKey, the default is msg.
 
 ```go
@@ -80,19 +80,19 @@ log.Fatalw("", "fruit", "banana")
 If you are in a project and just want to use a simple log function that can be printed at any time in the global, we provide a global log.
 
 ```go
-import "github.com/gofiber/fiber/v2/log"
+import "github.com/thylong/fiber/v2/log"
 
 log.Info("info")
 log.Warn("warn")
 ```
 
-The above is using the default `log.DefaultLogger` standard output. 
+The above is using the default `log.DefaultLogger` standard output.
 You can also find an already implemented adaptation under contrib, or use your own implemented Logger and use `log.SetLogger` to set the global log logger.
 
 ```go
 import (
     "log"
-    fiberlog "github.com/gofiber/fiber/v2/log"
+    fiberlog "github.com/thylong/fiber/v2/log"
 )
 
 var _ log.AllLogger = (*customLogger)(nil)
@@ -113,7 +113,7 @@ The default logger is LevelTrace.
 Note that this method is not **concurrent-safe**.
 
 ```go
-import "github.com/gofiber/fiber/v2/log"
+import "github.com/thylong/fiber/v2/log"
 
 log.SetLevel(log.LevelInfo)
 ```

@@ -1,7 +1,7 @@
 package healthcheck
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/thylong/fiber/v2"
 )
 
 // Config defines the configuration options for the healthcheck middleware.

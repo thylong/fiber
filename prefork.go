@@ -14,7 +14,7 @@ import (
 
 	"github.com/valyala/fasthttp/reuseport"
 
-	"github.com/gofiber/fiber/v2/log"
+	"github.com/thylong/fiber/v2/log"
 )
 
 const (

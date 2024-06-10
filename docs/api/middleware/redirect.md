@@ -18,13 +18,13 @@ func New(config ...Config) fiber.Handler
 package main
 
 import (
-  "github.com/gofiber/fiber/v2"
-  "github.com/gofiber/fiber/v2/middleware/redirect"
+  "github.com/thylong/fiber/v2"
+  "github.com/thylong/fiber/v2/middleware/redirect"
 )
 
 func main() {
   app := fiber.New()
-  
+
   app.Use(redirect.New(redirect.Config{
     Rules: map[string]string{
       "/old":   "/new",
@@ -32,14 +32,14 @@ func main() {
     },
     StatusCode: 301,
   }))
-  
+
   app.Get("/new", func(c *fiber.Ctx) error {
     return c.SendString("Hello, World!")
   })
   app.Get("/new/*", func(c *fiber.Ctx) error {
     return c.SendString("Wildcard: " + c.Params("*"))
   })
-  
+
   app.Listen(":3000")
 }
 ```

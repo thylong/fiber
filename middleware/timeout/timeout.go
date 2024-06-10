@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gofiber/fiber/v2/log"
+	"github.com/thylong/fiber/v2/log"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/thylong/fiber/v2"
 )
 
 var once sync.Once

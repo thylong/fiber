@@ -7,7 +7,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 // Storage interface that is implemented by storage providers

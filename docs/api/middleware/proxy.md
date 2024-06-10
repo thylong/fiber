@@ -33,8 +33,8 @@ Import the middleware package that is part of the Fiber web framework
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/proxy"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/proxy"
 )
 ```
 
@@ -48,7 +48,7 @@ proxy.WithTlsConfig(&tls.Config{
 })
 // if you need to use global self-custom client, you should use proxy.WithClient.
 proxy.WithClient(&fasthttp.Client{
-    NoDefaultUserAgentHeader: true, 
+    NoDefaultUserAgentHeader: true,
     DisablePathNormalizing:   true,
 })
 
@@ -60,7 +60,7 @@ app.Get("/payments", proxy.DomainForward("docs.gofiber.io", "http://localhost:80
 
 // Forward to url with local custom client
 app.Get("/gif", proxy.Forward("https://i.imgur.com/IWaBepg.gif", &fasthttp.Client{
-    NoDefaultUserAgentHeader: true, 
+    NoDefaultUserAgentHeader: true,
     DisablePathNormalizing:   true,
 }))
 

@@ -5,7 +5,7 @@ package load
 import (
 	"context"
 
-	"github.com/gofiber/fiber/v2/internal/gopsutil/common"
+	"github.com/thylong/fiber/v2/internal/gopsutil/common"
 )
 
 func Avg() (*AvgStat, error) {

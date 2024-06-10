@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 func Test_DefaultSystemLogger(t *testing.T) {

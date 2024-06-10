@@ -3,7 +3,7 @@ package cors
 import (
 	"testing"
 
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 // go test -run -v Test_normalizeOrigin

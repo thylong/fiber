@@ -74,10 +74,10 @@
     <img height="20px" src="https://img.shields.io/badge/PL-flag.svg?color=555555&style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjgwIDgwMCI+DQo8cGF0aCBmaWxsPSIjZTllOGU3IiBkPSJtMCwwaDEyODB2NDAwaC0xMjgweiIvPg0KPHBhdGggZmlsbD0iI2Q0MjEzZCIgZD0ibTAsNDAwaDEyODB2NDAwaC0xMjgweiIvPg0KPC9zdmc+DQo=">
   </a>
   <br>
-  <a href="https://pkg.go.dev/github.com/gofiber/fiber/v2#pkg-overview">
+  <a href="https://pkg.go.dev/github.com/thylong/fiber/v2#pkg-overview">
     <img src="https://img.shields.io/badge/%F0%9F%93%9A%20godoc-pkg-00ACD7.svg?color=00ACD7&style=flat-square">
   </a>
-  <a href="https://goreportcard.com/report/github.com/gofiber/fiber/v2">
+  <a href="https://goreportcard.com/report/github.com/thylong/fiber/v2">
     <img src="https://img.shields.io/badge/%F0%9F%93%9D%20goreport-A%2B-75C46B?style=flat-square">
   </a>
   <a href="https://gocover.io/github.com/gofiber/fiber">
@@ -107,7 +107,7 @@ z myślą o <b>wydajności</b> oraz <b>zerowej alokacji pamięci</b>.
 ```go
 package main
 
-import "github.com/gofiber/fiber/v2"
+import "github.com/thylong/fiber/v2"
 
 func main() {
     app := fiber.New()
@@ -136,7 +136,7 @@ Upewnij się, że masz zainstalowane Go ([pobierz](https://go.dev/dl/)). Wymagan
 Zainicjalizuj swój projekt poprzez stworzenie folderu i użycie komendy `go mod init github.com/your/repo` ([zobacz więcej](https://go.dev/blog/using-go-modules)) w tym folderze. Następnie zainstaluj Fiber'a przy użyciu komendy `go get`:
 
 ```bash
-go get -u github.com/gofiber/fiber/v2
+go get -u github.com/thylong/fiber/v2
 ```
 
 ## 🎯 Funkcjonalności
@@ -166,7 +166,7 @@ Fiber jest **inspirowany** javascriptowym frameworkiem Express, najpopularniejsz
 ## ⚠️ Ograniczenia
 
 -   Z uwagi na użycie unsafe przez Fiber'a, biblioteka nie zawsze będzie kompatybilna z najnowszą wersją Go. Fiber 2.40.0 został przetestowany z Go w wersjach 1.17 i 1.21.
-- Fiber nie jest kompatybilny z interfejsami net/http. To oznacza, że nie będziesz w stanie korzystać (bezpośrednio) z projektów takich jak gqlgen, go-swagger lub innych, które są częścią ekosystemu net/http. 
+- Fiber nie jest kompatybilny z interfejsami net/http. To oznacza, że nie będziesz w stanie korzystać (bezpośrednio) z projektów takich jak gqlgen, go-swagger lub innych, które są częścią ekosystemu net/http.
 
 
 ## 👀 Przykłady
@@ -313,7 +313,7 @@ Jeżeli chcesz wykonywać lub korzystać z innego silnika jak [amber](https://gi
 package main
 
 import (
-    "github.com/gofiber/fiber/v2"
+    "github.com/thylong/fiber/v2"
     "github.com/gofiber/template/pug"
 )
 
@@ -380,8 +380,8 @@ package main
 import (
     "log"
 
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/logger"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -403,8 +403,8 @@ func main() {
 import (
     "log"
 
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/cors"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -487,8 +487,8 @@ func main() {
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/websocket"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/websocket"
 )
 
 func main() {
@@ -521,7 +521,7 @@ func main() {
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
+    "github.com/thylong/fiber/v2"
     "github.com/valyala/fasthttp"
 )
 
@@ -562,8 +562,8 @@ func main() {
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/recover"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/recover"
 )
 
 func main() {
@@ -587,8 +587,8 @@ func main() {
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/recover"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/recover"
 )
 
 func main() {

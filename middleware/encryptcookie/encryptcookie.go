@@ -1,7 +1,7 @@
 package encryptcookie
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/thylong/fiber/v2"
 
 	"github.com/valyala/fasthttp"
 )

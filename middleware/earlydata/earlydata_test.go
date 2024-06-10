@@ -8,9 +8,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/earlydata"
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/middleware/earlydata"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 const (

@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 func Test_Config_Default(t *testing.T) {
