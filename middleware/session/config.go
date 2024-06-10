@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/log"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 // Config defines the config for middleware.

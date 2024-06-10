@@ -14,7 +14,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2/utils"
 
 	"github.com/valyala/fasthttp"
 )

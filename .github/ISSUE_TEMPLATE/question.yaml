@@ -31,7 +31,7 @@ body:
       value: |
         package main
 
-        import "github.com/gofiber/fiber/v2"
+        import "github.com/thylong/fiber/v2"
         import "log"
 
         func main() {

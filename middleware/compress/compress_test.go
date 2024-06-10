@@ -8,8 +8,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 var filedata []byte

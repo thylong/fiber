@@ -3,7 +3,7 @@ package rewrite
 import (
 	"regexp"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/thylong/fiber/v2"
 )
 
 // Config defines the config for middleware.

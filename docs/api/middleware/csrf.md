@@ -113,8 +113,8 @@ Import the middleware package that is part of the Fiber web framework:
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/csrf"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/csrf"
 )
 ```
 

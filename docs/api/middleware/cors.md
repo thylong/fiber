@@ -26,8 +26,8 @@ Import the middleware package that is part of the Fiber web framework
 
 ```go
 import (
-  "github.com/gofiber/fiber/v2"
-  "github.com/gofiber/fiber/v2/middleware/cors"
+  "github.com/thylong/fiber/v2"
+  "github.com/thylong/fiber/v2/middleware/cors"
 )
 ```
 
@@ -71,14 +71,14 @@ If you need to allow wildcard origins, use `AllowOrigins` with a wildcard `"*"` 
 func dbCheckOrigin(db *sql.DB, origin string) bool {
   // Placeholder query - adjust according to your database schema and query needs
   query := "SELECT COUNT(*) FROM allowed_origins WHERE origin = $1"
-  
+
   var count int
   err := db.QueryRow(query, origin).Scan(&count)
   if err != nil {
     // Handle error (e.g., log it); for simplicity, we return false here
     return false
   }
-  
+
   return count > 0
 }
 
@@ -183,7 +183,7 @@ The `AllowMethods` option controls which HTTP methods are allowed. For example, 
 
 The `AllowHeaders` option specifies which headers are allowed in the actual request. The middleware sets the Access-Control-Allow-Headers response header to the value of `AllowHeaders`. This informs the client which headers it can use in the actual request.
 
-The `AllowCredentials` option indicates whether the response to the request can be exposed when the credentials flag is true. If `AllowCredentials` is set to `true`, the middleware adds the header `Access-Control-Allow-Credentials: true` to the response. To prevent security vulnerabilities, `AllowCredentials` cannot be set to `true` if `AllowOrigins` is set to a wildcard (`*`). 
+The `AllowCredentials` option indicates whether the response to the request can be exposed when the credentials flag is true. If `AllowCredentials` is set to `true`, the middleware adds the header `Access-Control-Allow-Credentials: true` to the response. To prevent security vulnerabilities, `AllowCredentials` cannot be set to `true` if `AllowOrigins` is set to a wildcard (`*`).
 
 The `ExposeHeaders` option defines a whitelist of headers that clients are allowed to access. If `ExposeHeaders` is set to `"X-Custom-Header"`, the middleware adds the header `Access-Control-Expose-Headers: X-Custom-Header` to the response.
 

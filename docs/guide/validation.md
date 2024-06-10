@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/gofiber/fiber/v2"
+	"github.com/thylong/fiber/v2"
 )
 
 type (

@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gofiber/fiber/v2/internal/gopsutil/common"
+	"github.com/thylong/fiber/v2/internal/gopsutil/common"
 )
 
 func IOCounters(pernic bool) ([]IOCountersStat, error) {

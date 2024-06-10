@@ -20,7 +20,7 @@ Routes and other application-specific logic can live in as many files as you wis
 
 ## How do I handle custom 404 responses?
 
-If you're using v2.32.0 or later, all you need to do is to implement a custom error handler. See below, or see a more detailed explanation at [Error Handling](../guide/error-handling.md#custom-error-handler). 
+If you're using v2.32.0 or later, all you need to do is to implement a custom error handler. See below, or see a more detailed explanation at [Error Handling](../guide/error-handling.md#custom-error-handler).
 
 If you're using v2.31.0 or earlier, the error handler will not capture 404 errors. Instead, you need to add a middleware function at the very bottom of the stack \(below all other functions\) to handle a 404 response:
 
@@ -92,14 +92,14 @@ To learn more about using Templates in Fiber, see [Templates](../guide/templates
 
 ## Does Fiber have a community chat?
 
-Yes, we have our own [Discord ](https://gofiber.io/discord)server, where we hang out. We have different rooms for every subject.  
+Yes, we have our own [Discord ](https://gofiber.io/discord)server, where we hang out. We have different rooms for every subject.
 If you have questions or just want to have a chat, feel free to join us via this **&gt;** [**invite link**](https://gofiber.io/discord) **&lt;**.
 
 ![](/img/support-discord.png)
 
 ## Does fiber support sub domain routing ?
 
-Yes we do, here are some examples: 
+Yes we do, here are some examples:
 This example works v2
 ```go
 package main
@@ -107,8 +107,8 @@ package main
 import (
 	"log"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/middleware/logger"
 )
 
 type Host struct {

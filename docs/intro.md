@@ -17,7 +17,7 @@ First of all, [download](https://go.dev/dl/) and install Go. `1.17` or higher is
 Installation is done using the [`go get`](https://pkg.go.dev/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them) command:
 
 ```bash
-go get github.com/gofiber/fiber/v2
+go get github.com/thylong/fiber/v2
 ```
 
 ### Zero Allocation
@@ -28,7 +28,7 @@ Because fiber is optimized for **high-performance**, values returned from **fibe
 ```go
 func handler(c *fiber.Ctx) error {
     // Variable is only valid within this handler
-    result := c.Params("foo") 
+    result := c.Params("foo")
 
     // ...
 }
@@ -44,7 +44,7 @@ func handler(c *fiber.Ctx) error {
     // Make a copy
     buffer := make([]byte, len(result))
     copy(buffer, result)
-    resultCopy := string(buffer) 
+    resultCopy := string(buffer)
     // Variable is now valid forever
 
     // ...
@@ -56,7 +56,7 @@ We created a custom `CopyString` function that does the above and is available u
 ```go
 app.Get("/:foo", func(c *fiber.Ctx) error {
 	// Variable is now immutable
-	result := utils.CopyString(c.Params("foo")) 
+	result := utils.CopyString(c.Params("foo"))
 
 	// ...
 })
@@ -79,7 +79,7 @@ Embedded below is essentially the most straightforward **Fiber** app you can cre
 ```go
 package main
 
-import "github.com/gofiber/fiber/v2"
+import "github.com/thylong/fiber/v2"
 
 func main() {
 	app := fiber.New()
@@ -176,7 +176,7 @@ Use the following code to serve files in a directory named `./public`:
 ```go
 app := fiber.New()
 
-app.Static("/", "./public") 
+app.Static("/", "./public")
 
 app.Listen(":3000")
 ```

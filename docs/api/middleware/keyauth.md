@@ -20,8 +20,8 @@ package main
 import (
 	"crypto/sha256"
 	"crypto/subtle"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/keyauth"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/middleware/keyauth"
 )
 
 var (
@@ -58,7 +58,7 @@ func main() {
 **Test:**
 
 ```bash
-# No api-key specified -> 400 missing 
+# No api-key specified -> 400 missing
 curl http://localhost:3000
 #> missing or malformed API Key
 
@@ -82,8 +82,8 @@ package main
 import (
 	"crypto/sha256"
 	"crypto/subtle"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/keyauth"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/middleware/keyauth"
 	"regexp"
 	"strings"
 )
@@ -164,8 +164,8 @@ package main
 import (
 	"crypto/sha256"
 	"crypto/subtle"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/keyauth"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/middleware/keyauth"
 )
 
 const (

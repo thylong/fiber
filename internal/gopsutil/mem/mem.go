@@ -3,7 +3,7 @@ package mem
 import (
 	"encoding/json"
 
-	"github.com/gofiber/fiber/v2/internal/gopsutil/common"
+	"github.com/thylong/fiber/v2/internal/gopsutil/common"
 )
 
 //lint:ignore U1000 we need this elsewhere

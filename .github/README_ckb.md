@@ -1,11 +1,11 @@
 <p align="center">
   <a href="https://gofiber.io">
-  
+
   <picture>
     <source height="125" media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/gofiber/docs/master/static/img/logo-dark.svg">
     <img height="125" alt="Fiber" src="https://raw.githubusercontent.com/gofiber/docs/master/static/img/logo.svg">
   </picture>
-  
+
   </a>
   <br>
   <!-- base64 flags are available at https://www.phoca.cz/cssflags/ -->
@@ -71,10 +71,10 @@
     <img height="20px" src="https://img.shields.io/badge/PL-flag.svg?color=555555&style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjgwIDgwMCI+DQo8cGF0aCBmaWxsPSIjZTllOGU3IiBkPSJtMCwwaDEyODB2NDAwaC0xMjgweiIvPg0KPHBhdGggZmlsbD0iI2Q0MjEzZCIgZD0ibTAsNDAwaDEyODB2NDAwaC0xMjgweiIvPg0KPC9zdmc+DQo=">
   </a>
   <br>
-  <a href="https://pkg.go.dev/github.com/gofiber/fiber/v2#pkg-overview">
+  <a href="https://pkg.go.dev/github.com/thylong/fiber/v2#pkg-overview">
     <img src="https://img.shields.io/badge/%F0%9F%93%9A%20godoc-pkg-00ACD7.svg?color=00ACD7&style=flat-square">
   </a>
-  <a href="https://goreportcard.com/report/github.com/gofiber/fiber/v2">
+  <a href="https://goreportcard.com/report/github.com/thylong/fiber/v2">
     <img src="https://img.shields.io/badge/%F0%9F%93%9D%20goreport-A%2B-75C46B?style=flat-square">
   </a>
   <a href="https://gocover.io/github.com/gofiber/fiber">
@@ -102,7 +102,7 @@
 ```go
 package main
 
-import "github.com/gofiber/fiber/v2"
+import "github.com/thylong/fiber/v2"
 
 func main() {
     app := fiber.New()
@@ -131,7 +131,7 @@ func main() {
 پڕۆژەکەت دەست پێ بکە بە دروستکردنی بوخچەیەک و کار پێ کردنی فەرمانی `go mod init github.com/your/repo` ([زیاتر](https://go.dev/blog/using-go-modules)) لەناو بوخچەکە. دواتریش بەم فەرمانەی خوارەوە فایبەر دامەزرێنە:
 
 ```bash
-go get -u github.com/gofiber/fiber/v2
+go get -u github.com/thylong/fiber/v2
 ```
 
 ## 🎯 تایبەتمەندییەکان
@@ -310,7 +310,7 @@ func main() {
 package main
 
 import (
-    "github.com/gofiber/fiber/v2"
+    "github.com/thylong/fiber/v2"
     "github.com/gofiber/template/pug"
 )
 
@@ -377,8 +377,8 @@ package main
 import (
     "log"
 
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/logger"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -400,8 +400,8 @@ func main() {
 import (
     "log"
 
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/cors"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -485,8 +485,8 @@ func main() {
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/websocket"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/websocket"
 )
 
 func main() {
@@ -519,7 +519,7 @@ func main() {
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
+    "github.com/thylong/fiber/v2"
     "github.com/valyala/fasthttp"
 )
 
@@ -560,8 +560,8 @@ func main() {
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/recover"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/recover"
 )
 
 func main() {
@@ -585,8 +585,8 @@ func main() {
 
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/recover"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/recover"
 )
 
 func main() {

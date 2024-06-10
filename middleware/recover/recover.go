@@ -5,7 +5,7 @@ import (
 	"os"
 	"runtime/debug"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/thylong/fiber/v2"
 )
 
 func defaultStackTraceHandler(_ *fiber.Ctx, e interface{}) {

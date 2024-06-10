@@ -10,8 +10,8 @@ import (
 	"github.com/valyala/fasthttp"
 	"github.com/valyala/fasthttp/fasthttpadaptor"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 // HTTPHandlerFunc wraps net/http handler func to fiber handler

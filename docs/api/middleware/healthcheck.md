@@ -31,8 +31,8 @@ func New(config Config) fiber.Handler
 Import the middleware package that is part of the [Fiber](https://github.com/gofiber/fiber) web framework
 ```go
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/fiber/v2/middleware/healthcheck"
+    "github.com/thylong/fiber/v2"
+    "github.com/thylong/fiber/v2/middleware/healthcheck"
 )
 ```
 
@@ -65,7 +65,7 @@ type Config struct {
 	Next func(c *fiber.Ctx) bool
 
 	// Function used for checking the liveness of the application. Returns true if the application
-	// is running and false if it is not. The liveness probe is typically used to indicate if 
+	// is running and false if it is not. The liveness probe is typically used to indicate if
 	// the application is in a state where it can handle requests (e.g., the server is up and running).
 	//
 	// Optional. Default: func(c *fiber.Ctx) bool { return true }

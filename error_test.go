@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/gofiber/fiber/v2/internal/schema"
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2/internal/schema"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 func TestConversionError(t *testing.T) {

@@ -15,7 +15,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/gofiber/fiber/v2/utils"
+	"github.com/thylong/fiber/v2/utils"
 )
 
 // routeParser holds the path segments and param names

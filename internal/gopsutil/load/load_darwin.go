@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"github.com/gofiber/fiber/v2/internal/gopsutil/common"
+	"github.com/thylong/fiber/v2/internal/gopsutil/common"
 )
 
 var invoke common.Invoker = common.Invoke{}
