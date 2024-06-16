@@ -32,6 +32,14 @@ type Config struct {
 	// Optional. Default: false
 	CacheControl bool
 
+	// Notify of cache operations after completion
+	// Can be used to execute hooks outside of middleware
+	//
+	// Default: func(event string) error {
+	//   return nil
+	// }
+	Hook func(event string) error
+
 	// Key allows you to generate custom keys, by default c.Path() is used
 	//
 	// Default: func(c *fiber.Ctx) string {
@@ -76,6 +84,7 @@ type Config struct {
 
 // ConfigDefault is the default config
 var ConfigDefault = Config{
+	Hook:         nil,
 	Next:         nil,
 	Expiration:   1 * time.Minute,
 	CacheHeader:  "X-Cache",
@@ -101,6 +110,9 @@ func configDefault(config ...Config) Config {
 	cfg := config[0]
 
 	// Set default values
+	if cfg.Hook == nil {
+		cfg.Hook = ConfigDefault.Hook
+	}
 	if cfg.Store != nil {
 		log.Warn("[CACHE] Store is deprecated, please use Storage")
 		cfg.Storage = cfg.Store
