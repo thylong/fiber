@@ -86,6 +86,10 @@ func New(config ...Config) fiber.Handler {
 	// Delete key from both manager and storage
 	deleteKey := func(dkey string) {
 		manager.del(dkey)
+		if cfg.Hook != nil {
+			cfg.Hook(`{"k":"` + dkey + `", "s":"del"}`)
+		}
+
 		// External storage saves body data with different key
 		if cfg.Storage != nil {
 			manager.del(dkey + "_body")
@@ -338,6 +342,9 @@ func New(config ...Config) fiber.Handler {
 			// avoid body msgp encoding
 			e.body = nil
 			manager.set(key, &cacheSegments{segments: map[string]item{k: e}}, expiration)
+			if cfg.Hook != nil {
+				cfg.Hook(`{"k":"` + key + `", "s":"set"}`)
+			}
 			// manager.release(e)
 		} else {
 			// Store entry in memory
@@ -345,8 +352,14 @@ func New(config ...Config) fiber.Handler {
 				// append to existing segments map
 				seg.segments[k] = e
 				manager.set(key, seg, expiration)
+				if cfg.Hook != nil {
+					cfg.Hook(`{"k":"` + key + `", "s":"set"}`)
+				}
 			} else {
 				manager.set(key, &cacheSegments{segments: map[string]item{k: e}}, expiration)
+				if cfg.Hook != nil {
+					cfg.Hook(`{"k":"` + key + `", "s":"set"}`)
+				}
 			}
 		}
 
