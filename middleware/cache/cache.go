@@ -249,6 +249,12 @@ func New(config ...Config) fiber.Handler {
 			return nil
 		}
 
+		// Don't cache response if max-age=0
+		if bytes.Equal(c.Context().Response.Header.Peek("Cache-Control"), []byte("max-age=0")) {
+			c.Set(cfg.CacheHeader, cacheUnreachable)
+			return nil
+		}
+
 		// Don't cache response if private
 		if hasResponseDirective(c, private) {
 			c.Set(cfg.CacheHeader, cacheUnreachable)
